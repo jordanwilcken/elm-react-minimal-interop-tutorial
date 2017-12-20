@@ -1,14 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "make": "./node_modules/.bin/webpack -d",
+    "make": "webpack -d",
     "serve": "npm run make && ./node_modules/http-server/bin/http-server -o -c-1"
   },
   "dependencies": {
     "emojione-picker": "^0.3.6",
     "react": "^0.14.9",
-    "react-dom": "~0.14.0",
-    "react-elm-components": ".."
+    "react-dom": "~0.14.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -21,7 +20,6 @@
     "elm-webpack-loader": "^3.0.3",
     "http-server": "^0.9.0",
     "uglify-js": "^2.6.4",
-    "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }
 }
