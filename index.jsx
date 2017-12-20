@@ -1,8 +1,7 @@
-//import React from 'react'
-//import ReactDOM from 'react-dom'
-//import EmojiPicker from 'emojione-picker'
-import * as Elm from './elm-component'
-import { EmbeddedElm } from './EmbeddedElm'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Elm from './elm-component'
+import { ElmHistoryModule } from './ElmHistoryModule'
 
 function Square(props) {
   return (
@@ -49,37 +48,34 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      history: [
-        {
-          squares: Array(9).fill(null)
-        }
-      ],
+      squares: Array(9).fill(null),
       stepNumber: 0,
       xIsNext: true
     };
   }
 
   handleClick(i) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
-    const squares = current.squares.slice();
+    const squares = this.state.squares;
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
-    this.setState({
-      history: history.concat([
-        {
-          squares: squares
-        }
-      ]),
-      stepNumber: history.length,
+    const newState = {
+      squares: squares,
+      stepNumber: this.state.stepNumber + 1,
       xIsNext: !this.state.xIsNext
-    });
+    };
+    this.setState(newState);
+    if (!this.sendGamestate) {
+        console.log("forgot to setup sendGamestate");
+    } else {
+        this.sendGamestate(newState);
+    }
   }
 
-  jumpTo(step) {
+  jumpTo(step, squares) {
     this.setState({
+      squares: squares,
       stepNumber: step,
       xIsNext: (step % 2) === 0
     });
@@ -87,20 +83,7 @@ class Game extends React.Component {
 
   render() {
     const game = this;
-    const history = this.state.history;
-    const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
-
-    const moves = history.map((step, move) => {
-      const desc = move ?
-        'Go to move #' + move :
-        'Go to game start';
-      return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
-        </li>
-      );
-    });
+    const winner = calculateWinner(this.state.squares);
 
     let status;
     if (winner) {
@@ -113,13 +96,12 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board
-            squares={current.squares}
-            onClick={i => this.handleClick(i)}
-          />
+            squares={this.state.squares}
+            onClick={i => this.handleClick(i)} />
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <Elm src={ElmHistoryModule} />
         </div>
       </div>
     );
@@ -132,34 +114,6 @@ class Game extends React.Component {
 // ========================================
 
 ReactDOM.render(<Game />, document.getElementById("root"));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function calculateWinner(squares) {
   const lines = [
