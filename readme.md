@@ -114,9 +114,9 @@ We're going to hook up our ports in the setupPorts function. You'll find setupPo
 
 ```javascript
 setupPorts(game, ports) {
-	ports.setGamestate.subscribe(function(gamestate) {
-    	game.jumpTo(gamestate.stepNumber, gamestate.squares);
-	});
+    ports.setGamestate.subscribe(function(gamestate) {
+        game.jumpTo(gamestate.stepNumber, gamestate.squares);
+    });
 }
 ```
 
@@ -126,13 +126,13 @@ Let's move on to our last port - the one for sending new gamestates into Elm:
 
 ```javascript
 setupPorts(game, ports) {
-	ports.setGamestate.subscribe(function(gamestate) {
-    	game.jumpTo(gamestate.stepNumber, gamestate.squares);
-	});
+    ports.setGamestate.subscribe(function(gamestate) {
+        game.jumpTo(gamestate.stepNumber, gamestate.squares);
+    });
   
   	game.sendGamestate = function(gamestate) {
-		ports.gamestates.send(gamestate);
-	};
+        ports.gamestates.send(gamestate);
+    };
 }
 ```
 
