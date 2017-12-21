@@ -130,7 +130,7 @@ setupPorts(game, ports) {
         game.jumpTo(gamestate.stepNumber, gamestate.squares);
     });
   
-  	game.sendGamestate = function(gamestate) {
+    game.sendGamestate = function(gamestate) {
         ports.gamestates.send(gamestate);
     };
 }
