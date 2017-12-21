@@ -5,6 +5,12 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 
+port gamestates : (Gamestate -> msg) -> Sub msg
+
+
+port setGamestate : Gamestate -> Cmd msg
+
+
 main : Program Never Model Msg
 main =
     Html.program
@@ -72,10 +78,6 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
     gamestates GamestateReceived
 
-
-port gamestates : (Gamestate -> msg) -> Sub msg
-
-port setGamestate : Gamestate -> Cmd msg
 
 
 -- VIEW

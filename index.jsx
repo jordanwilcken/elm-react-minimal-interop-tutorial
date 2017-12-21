@@ -101,14 +101,15 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <Elm src={ElmHistoryModule} />
         </div>
       </div>
     );
   }
 
-  setupPorts() {
+  setupPorts(game, ports) {
+
   }
+
 }
 
 // ========================================

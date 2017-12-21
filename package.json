@@ -1,11 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "make": "webpack -d",
-    "serve": "npm run make && ./node_modules/http-server/bin/http-server -o -c-1"
   },
   "dependencies": {
-    "emojione-picker": "^0.3.6",
     "react": "^0.14.9",
     "react-dom": "~0.14.0"
   },
@@ -18,7 +15,6 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
     "elm-webpack-loader": "^3.0.3",
-    "http-server": "^0.9.0",
     "uglify-js": "^2.6.4",
     "webpack-dev-server": "^1.14.1"
   }
